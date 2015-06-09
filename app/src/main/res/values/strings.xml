@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MyMap</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="get_address">住所取得</string>
+    <string name="rec_point">ここを記録</string>
+    <string name="alert_dialog_confirm_title">記録確認</string>
+    <string name="alert_dialog_confirm_message">本当にここに記録しますか</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="marker_on">マーカーを表示</string>
+    <string name="marker_off">マーカーを非表示</string>
+
+
+
+
+
+</resources>

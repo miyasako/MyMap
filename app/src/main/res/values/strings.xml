@@ -10,6 +10,7 @@
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="marker_on">マーカーを表示</string>
     <string name="marker_off">マーカーを非表示</string>
+    <string name="hozon">保存失敗</string>
 
 
 

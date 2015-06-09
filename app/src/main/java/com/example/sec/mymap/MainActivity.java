@@ -263,7 +263,7 @@ public class MainActivity extends Activity implements LocationListener, Location
      void showDialog() {
          String address = edText.getText().toString();
          if (address.equals("")){
-             Toast.makeText(this,"住所を取得してください",Toast.LENGTH_SHORT).show();
+             Toast.makeText(this," 住所がありません",Toast.LENGTH_SHORT).show();
              edText.requestFocus();
              return;
          }
@@ -282,6 +282,10 @@ public class MainActivity extends Activity implements LocationListener, Location
     public void doNegativeClick(){
     }
 
+    /**
+     * エラーの原因。
+     * insertできない
+     */
     private void savePointViaCTP() {
         ContentValues values = new ContentValues();
         double lat = mLat;
@@ -294,9 +298,12 @@ public class MainActivity extends Activity implements LocationListener, Location
         values.put(DatabaseHelper.COLUMN_ADDRESS,address);
         values.put(DatabaseHelper.COLUMN_DATE, strDate);
         getContentResolver().insert(DejaVuContentProvider.CONTENT_URI, values);
-        Toast.makeText(this,"データを保存しました",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"データを保存しました",Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * データベースを作って作ったデータベースに緯度、経度、住所、時間を保存。
+     */
     private void savepoint(){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
 

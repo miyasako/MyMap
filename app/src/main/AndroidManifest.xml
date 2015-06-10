@@ -33,18 +33,20 @@
             android:configChanges="orientation|screenSize"
             android:name=".MainActivity"
             android:label="@string/app_name" >
+
+
+
             <intent-filter>
-
-                <provider
-                    android:name="DejaVuContentProvider"
-                    android:authorities="com.example.sec.mymap.DejaVuContentProvider"
-                    android:exported="false">
-
-                </provider>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="DejaVuContentProvider"
+            android:authorities="com.example.sec.mymap.DejaVuContentProvider"
+            android:exported="false">
+        </provider>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ public class DejaVuContentProvider extends ContentProvider{
 
     private static final int DEJAVUS = 10;
     private static final int DEJAVU_ID = 20;
-    private static final String AUTHORITY = "com.example.sec.mymap.DejavuContentProvider";
+    private static final String AUTHORITY = "com.example.sec.mymap.DejaVuContentProvider";
 
     private static final String BASE_PATH = "dejavus";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
@@ -31,15 +31,11 @@ public class DejaVuContentProvider extends ContentProvider{
         urimatcher.addURI(AUTHORITY,BASE_PATH + "/#",DEJAVU_ID);
     }
 
-
+    //コンテンツプロバイダの作成
     @Override
     public boolean onCreate() {
-        try {
-            database = new DatabaseHelper(getContext());
-        }catch (Exception ex){
-            return  true;
-        }
-        return false;
+        database = new DatabaseHelper(getContext());
+        return  true;
     }
 
     @Override

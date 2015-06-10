@@ -1,5 +1,6 @@
 package com.example.sec.mymap;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.LoaderManager;
@@ -13,12 +14,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -34,7 +38,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class MainActivity extends Activity implements LocationListener, LocationSource, OnClickListener, LoaderManager.LoaderCallbacks<Address> {
+public class MainActivity extends ActionBarActivity implements LocationListener, LocationSource, OnClickListener, LoaderManager.LoaderCallbacks<Address> {
 
     private static final int ADDRESSLOADER_ID = 0;
     private static final int CURSORLOADER_ID = 1;
@@ -70,9 +74,7 @@ public class MainActivity extends Activity implements LocationListener, Location
         Button btn2 = (Button) findViewById(R.id.button2);
         btn2.setOnClickListener(this);
         dbhelper = new DatabaseHelper(this);
-
     }
-
 
     @Override
     protected void onResume(){
@@ -110,8 +112,9 @@ public class MainActivity extends Activity implements LocationListener, Location
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.activity_main,menu);
-
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main, menu);
+//        getMenuInflater().inflate(R.menu.activity_main,menu);
         return true;
     }
 
@@ -132,6 +135,8 @@ public class MainActivity extends Activity implements LocationListener, Location
             case R.id.markar_off:
                 MarkerOff();
                 return true;
+            case R.id.del:
+
         }
         return false;
     }
@@ -195,8 +200,6 @@ public class MainActivity extends Activity implements LocationListener, Location
         }
     };
 
-
-
     //ロケーションリスナー　（現在地が変わったときの通知を受け取る）
     @Override
     public void onLocationChanged(Location location) {//位置が変わったときに呼び出される
@@ -239,6 +242,7 @@ public class MainActivity extends Activity implements LocationListener, Location
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button:
+                edText.setVisibility(View.VISIBLE);
                 getAddressByLoader();
                 return;
             case R.id.button2:
@@ -282,22 +286,19 @@ public class MainActivity extends Activity implements LocationListener, Location
     public void doNegativeClick(){
     }
 
-    /**
-     * エラーの原因。
-     * insertできない
-     */
     private void savePointViaCTP() {
+        DejaVuContentProvider cp = new DejaVuContentProvider();
         ContentValues values = new ContentValues();
         double lat = mLat;
         double lon = mLon;
         String address = edText.getText().toString();
-        String strDate = new SimpleDateFormat("yyyy-mm-dd", Locale.US).format(new Date());
+        String strDate = new SimpleDateFormat("yyyy-mm-dd", Locale.JAPAN).format(new Date());
 
         values.put(DatabaseHelper.COLUMN_LAT,lat);
         values.put(DatabaseHelper.COLUMN_LON,lon);
         values.put(DatabaseHelper.COLUMN_ADDRESS,address);
         values.put(DatabaseHelper.COLUMN_DATE, strDate);
-        getContentResolver().insert(DejaVuContentProvider.CONTENT_URI, values);
+        getContentResolver().insert(cp.CONTENT_URI, values);
         Toast.makeText(this,"データを保存しました",Toast.LENGTH_LONG).show();
     }
 
@@ -319,7 +320,7 @@ public class MainActivity extends Activity implements LocationListener, Location
         values.put("date", strDate);
         try {
             db.insert("dejavu", null, values);
-            Toast.makeText(this,"データを保存しました",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"date put",Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(this,"保存に失敗しました",Toast.LENGTH_SHORT).show();
         } finally {

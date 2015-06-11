@@ -1,7 +1,5 @@
 package com.example.sec.mymap;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,6 +29,7 @@ import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.wearable.internal.GetCloudSyncOptInOutDoneResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -100,6 +98,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         onStop();
     }
 
+    /**
+     * マップフラグメントのセッティング
+     */
     private void setUpMapIfNeeded() {
         if (mMap == null) {
             mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.G_Map)).getMap();
@@ -110,15 +111,19 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         }
     }
 
+    /**
+     * めにゅーを作る
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main, menu);
-//        getMenuInflater().inflate(R.menu.activity_main,menu);
         return true;
     }
 
-    //ローダーコールバックス
+
     @Override
     public Loader<Address> onCreateLoader(int id, Bundle args) {
         double lat = args.getDouble("lat");
@@ -126,6 +131,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         return new AddressTaskLoader(this,lat,lon);
     }
 
+    /**
+     * メニューのクリックイベント
+     * @param item　res/menu/activity_mainの中のアイテム
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -135,7 +145,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
             case R.id.markar_off:
                 MarkerOff();
                 return true;
-            case R.id.del:
+            case R.id.AccessDB:
+
 
         }
         return false;
@@ -237,7 +248,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         mListener = null;
     }
 
-    //オンクリックリスナー
+    //クリック
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -247,6 +258,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                 return;
             case R.id.button2:
                 showDialog();
+                edText.setVisibility(View.INVISIBLE);
                 return;
 
             default:
@@ -312,8 +324,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         double lat = mLat;
         double lon = mLon;
         String address = edText.getText().toString();
-        String strDate = new SimpleDateFormat("yyyy-mm-dd",Locale.US).format(new Date());
-
+        String strDate = new SimpleDateFormat("yyyy-mm-dd",Locale.JAPAN).format(new Date());
+        System.out.println(strDate +"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         values.put("lat", lat);
         values.put("lon", lon);
         values.put("address", address);

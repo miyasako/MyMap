@@ -44,10 +44,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/editText"
             android:layout_marginTop="4dp"
-            android:background="#ffffffff"
+            android:background="@drawable/text_border"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:visibility="invisible" />
 
     </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff80a4ff"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="保存リスト"
+            android:id="@+id/textView"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="80dp"
+            android:nestedScrollingEnabled="false" />
+    </TableLayout>
+
 </FrameLayout>

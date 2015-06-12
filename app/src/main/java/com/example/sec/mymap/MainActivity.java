@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     private double mLon = 0;
     private EditText edText;
     private DatabaseHelper dbhelper;
+    TableLayout tableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         Button btn2 = (Button) findViewById(R.id.button2);
         btn2.setOnClickListener(this);
         dbhelper = new DatabaseHelper(this);
+       tableLayout = (TableLayout) findViewById(R.id.DB);
     }
 
     @Override
@@ -146,6 +149,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                 MarkerOff();
                 return true;
             case R.id.AccessDB:
+                tableLayout.setVisibility(View.VISIBLE);
 
 
 

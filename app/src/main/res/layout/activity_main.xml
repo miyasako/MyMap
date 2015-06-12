@@ -55,7 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ff80a4ff"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:id="@+id/DB">
 
         <TextView
             android:layout_width="match_parent"
